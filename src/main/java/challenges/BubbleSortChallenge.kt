@@ -11,7 +11,7 @@ class BubbleSortChallenge : Challenge<IntArray, IntArray>() {
         for (step in 0 until input.lastIndex) {
 
             // At every step, walk through array again
-            for(i in 0 until input.lastIndex) {
+            for(i in 0 until input.lastIndex) { //
 
                 // If the value at index i is greater than value at i + 1
                 // Swap values
@@ -20,7 +20,7 @@ class BubbleSortChallenge : Challenge<IntArray, IntArray>() {
                     input[i] = input[i + 1]
                     input[i + 1] = temp
                 }
-                
+
                 // Otherwise, i will point to i + 1
 
             }
