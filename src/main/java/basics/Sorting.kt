@@ -64,7 +64,8 @@ object Sorting {
         }
     }
 
-
+    // Time complexity: O(n log n) Space complexity: O(n)
+    // Not an in-place algorithm
     fun mergeSort(arr: IntArray) {
         // Split up array recursively and merge
         // Reduce until we only have one element in the sublist
@@ -85,6 +86,7 @@ object Sorting {
         mergeSort(rightSubArr)
         merge(leftSubArr, rightSubArr, arr)
     }
+
 
     fun merge(l: IntArray, r: IntArray, original: IntArray) {
 
@@ -119,11 +121,43 @@ object Sorting {
         }
 
     }
+
+    // Average case running time: O(n Log n) Very high probability! ; Worst case: o(n^2)
+    // in place (O(1))
+    fun quickSort(arr: IntArray, left: Int = 0, right: Int = arr.lastIndex) {
+
+        val index = partition(arr, left, right)
+        // Sorting left half
+        if(left < index - 1) quickSort(arr, left,index-1)
+        // Sorting right half
+        if(index < right) quickSort(arr, index, right)
+    }
+
+    fun partition(arr: IntArray, l: Int, r: Int): Int {
+
+        var left = l
+        var right = r
+        val pivot = arr[(left + right) / 2] // Pivot point
+
+        while(left <= right) {
+
+            while(arr[left] < pivot) left++ // Finds elements on left that should be on right
+            while(arr[right] > pivot) right-- // Finds elements on right that should be on left
+
+            // Swap elements and move left and right indices
+            if(left <= right) {
+                val temp = arr[left]
+                arr[left] = arr[right]
+                arr[right] = temp
+            }
+        }
+        return left
+    }
 }
 
 fun main() {
     val arr = intArrayOf(4, 3, 5, 9, 6, 8)
     println("Input: ${arr.toList()}")
-    Sorting.mergeSort(arr)
+    Sorting.quickSort(arr, 0, arr.lastIndex)
     println("Output: ${arr.toList()}")
 }
